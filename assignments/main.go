@@ -8,23 +8,21 @@ import (
 )
 
 func main() {
-	fmt.Println("hello world")
+	arraySign([]int{2, 1})                    
+	arraySign([]int{-2, 1})                   
+	arraySign([]int{-1, -2, -3, -4, 3, 2, 1})
 
-	arraySign([]int{2, 1})                    // 1
-	arraySign([]int{-2, 1})                   // -1
-	arraySign([]int{-1, -2, -3, -4, 3, 2, 1}) // 1
+	isAnagram("anak", "kana") 
+	isAnagram("anak", "mana")
+	isAnagram("anagram", "managra") 
 
-	isAnagram("anak", "kana") // true
-	isAnagram("anak", "mana") // false
-	isAnagram("anagram", "managra") // true
+	findTheDifference("abcd", "abcde") 
+	findTheDifference("abcd", "abced")
+	findTheDifference("", "y")
 
-	findTheDifference("abcd", "abcde") // 'e'
-	findTheDifference("abcd", "abced") // 'e'
-	findTheDifference("", "y")         // 'y'
-
-	canMakeArithmeticProgression([]int{1, 5, 3})    // true; 1, 3, 5 adalah baris aritmatik +2
-	canMakeArithmeticProgression([]int{5, 1, 9})    // true; 9, 5, 1 adalah baris aritmatik -4
-	canMakeArithmeticProgression([]int{1, 2, 4, 8}) // false; 1, 2, 4, 8 bukan baris aritmatik, melainkan geometrik x2
+	canMakeArithmeticProgression([]int{1, 5, 3})   
+	canMakeArithmeticProgression([]int{5, 1, 9})
+	canMakeArithmeticProgression([]int{1, 2, 4, 8})
 
 	tesDeck()
 }
@@ -48,26 +46,21 @@ func arraySign(nums []int) int {
 
 // https://leetcode.com/problems/valid-anagram
 func isAnagram(s string, t string) bool {
-	// If the lengths of the two strings are not equal, they can't be anagrams
 	if len(s) != len(t) {
 		return false
 	}
 
-	// Create frequency maps for each character in both strings
 	countS := make(map[rune]int)
 	countT := make(map[rune]int)
 
-	// Count characters in s
 	for _, char := range s {
 		countS[char]++
 	}
 
-	// Count characters in t
 	for _, char := range t {
 		countT[char]++
 	}
 
-	// Compare the frequency maps
 	for key, val := range countS {
 		if countT[key] != val {
 			return false
@@ -81,7 +74,6 @@ func isAnagram(s string, t string) bool {
 func findTheDifference(s string, t string) byte {
 	var result byte = 0
 
-	// XOR all characters in both strings
 	for i := range s {
 		result ^= s[i]
 	}
@@ -94,13 +86,10 @@ func findTheDifference(s string, t string) byte {
 
 // https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence
 func canMakeArithmeticProgression(arr []int) bool {
-	// Step 1: Sort the array
 	sort.Ints(arr)
 
-	// Step 2: Calculate the common difference
 	diff := arr[1] - arr[0]
 
-	// Step 3: Check if every consecutive pair has the same difference
 	for i := 2; i < len(arr); i++ {
 		if arr[i]-arr[i-1] != diff {
 			return false
@@ -110,7 +99,6 @@ func canMakeArithmeticProgression(arr []int) bool {
 	return true
 }
 
-// Deck represents a "standard" deck consisting of 52 cards
 type Deck struct {
 	cards []Card
 }
@@ -199,10 +187,10 @@ func tesDeck() {
 	fmt.Println("---\n")
 
 	fmt.Println("Peek card at index:")
-	fmt.Println(deck.PeekCardAtIndex(12).ToString()) // Queen Spade
-	fmt.Println(deck.PeekCardAtIndex(13).ToString()) // King Spade
-	fmt.Println(deck.PeekCardAtIndex(14).ToString()) // Ace Heart
-	fmt.Println(deck.PeekCardAtIndex(15).ToString()) // 2 Heart
+	fmt.Println(deck.PeekCardAtIndex(12).ToString()) 
+	fmt.Println(deck.PeekCardAtIndex(13).ToString()) 
+	fmt.Println(deck.PeekCardAtIndex(14).ToString()) 
+	fmt.Println(deck.PeekCardAtIndex(15).ToString()) 
 	fmt.Println("---\n")
 
 	fmt.Println("Shuffling and peeking top 10 cards:")
@@ -214,8 +202,8 @@ func tesDeck() {
 	fmt.Println("---\n")
 
 	fmt.Println("Cutting and peeking bottom 10 cards:")
-	deck.New()  // Reset deck to original order
-	deck.Cut(5) // Cut top 5 cards to bottom
+	deck.New() 
+	deck.Cut(5)
 	bottom10Cards := deck.PeekBottom(10)
 	for _, c := range bottom10Cards {
 		fmt.Println(c.ToString())
